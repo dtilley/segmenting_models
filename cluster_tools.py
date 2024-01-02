@@ -1,12 +1,12 @@
-""" Clustering pipeline -DT 11/23/21
+"""Clustering functions for segmenting data
 The intention is to add clustering methods for the following:
-1. Partitional clustering (KMeans)
-2. Hierarchical clustering (Agglomerative)
-3. Density-based (TBD) """
+ 1. Partitional clustering (KMeans)
+ 2. Hierarchical clustering (Agglomerative)
+ 3. Density-based (TBD)
+"""
 
 import numpy as np
 import matplotlib.pyplot as plt
-
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from kneed import KneeLocator
@@ -14,11 +14,10 @@ from scipy.cluster.hierarchy import fcluster
 from scipy.cluster.hierarchy import dendrogram, linkage
 
 
-""" The data passed to plot_KMeans_knee is assumed to be already preprocessed
+def plot_kmeans_knee(data, max_k=11, return_sse=False):
+    """The data passed to plot_KMeans_knee is assumed to be already preprocessed
     knee curve shape is assumed to be convex and decreasing."""
 
-
-def plot_kmeans_knee(data, max_k=11, return_sse=False):
     kmeans_kwargs = {
         'init': 'k-means++',
         'n_init': 10,
