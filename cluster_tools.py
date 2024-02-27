@@ -71,11 +71,9 @@ def plot_kmeans_silhouette_coeff(data, max_k=11, return_SC=False):
         return
 
 
-""" The dendrogram is generated using the Agglomerative clustering method
-    using the default 'ward' linkage method."""
-
-
 def plot_dendrogram(Z, max_d=None):
+    """The dendrogram is generated using an agglomerative clustering method
+    using the default 'ward' linkage method."""
     plt.xlabel('sample index')
     plt.ylabel('distance')
     if max_d is None:
