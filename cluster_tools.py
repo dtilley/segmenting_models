@@ -114,3 +114,37 @@ def get_clstrs_dist(Z, max_d):
 
 def get_clstrs_k(Z, max_k):
     return(fcluster(Z, max_k, criterion='maxclust'))
+
+
+def apply_sequential_colors(clusters: list):
+    """Applies the Tableau 10 Colors in sequential order to a cluster column"""
+    
+    # Tableau 10 Colors (RGB values)
+    T10_rgb = [
+        (31, 119, 180),  # Blue
+        (255, 127, 14),  # Orange
+        (44, 160, 44),   # Green
+        (214, 39, 40),   # Red
+        (148, 103, 189), # Purple
+        (140, 86, 75),   # Brown
+        (227, 119, 194), # Pink
+        (127, 127, 127), # Gray
+        (188, 189, 34),  # Yellow
+        (23, 190, 207)   # Cyan
+    ]
+
+    # Get cluster labels with original order
+    clusters = np.array(clusters)
+    _, ndx = np.unique(clusters, return_index=True)
+    cluster_labels = clusters[np.sort(ndx)]
+
+    # Check number of clusters
+    if (len(cluster_labels) > len(tableau_colors_rgb)):
+        print(f"Number of clusters ({len(cluster_labels)}) exceeds 'T10' palette.")
+        return None
+
+    # Create color dict
+    colors = {cluster_labels[i]: T10_rgb[i] for i in range(len(cluster_labels))}
+
+    # Create color column
+    
